@@ -1,0 +1,3 @@
+netgen_html_pdf_api_test:
+    pattern:  /test/
+    defaults: { _controller: NetgenHtmlPdfApiBundle:Api:test }
