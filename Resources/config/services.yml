@@ -1,8 +1,8 @@
 parameters:
-    netgen_html_pdf_api.class: Netgen\HtmlPdfApiBundle\Component\HtmlPdfApi
-    netgen_html_pdf_api.http_client.guzzle.class: Netgen\HtmlPdfApiBundle\Component\HttpClient\Guzzle
-    netgen_html_pdf_api.http_client.curl.class: Netgen\HtmlPdfApiBundle\Component\HttpClient\Curl
-    netgen_html_pdf_api.validator.htmlpdfapivalidator.class: Netgen\HtmlPdfApiBundle\Component\Validator\HtmlPdfApiValidator
+    netgen_html_pdf_api.class: Netgen\HtmlPdfApi\HtmlPdfApi
+    netgen_html_pdf_api.http_client.guzzle.class: Netgen\HtmlPdfApi\HttpClient\Guzzle
+    netgen_html_pdf_api.http_client.curl.class: Netgen\HtmlPdfApi\HttpClient\Curl
+    netgen_html_pdf_api.validator.htmlpdfapivalidator.class: Netgen\HtmlPdfApi\Validator\HtmlPdfApiValidator
 
 services:
     netgen_html_pdf_api:
@@ -12,7 +12,7 @@ services:
             - @netgen_html_pdf_api.validator
 
     netgen_html_pdf_api.http_client:
-        alias: netgen_html_pdf_api.http_client.guzzle
+        alias: netgen_html_pdf_api.http_client.curl
 
     netgen_html_pdf_api.validator:
         alias: netgen_html_pdf_api.validator.htmlpdfapivalidator
