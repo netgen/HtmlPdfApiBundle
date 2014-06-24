@@ -18,5 +18,6 @@ Installation and use instructions
 ---------------------------------
 
 [Installation instructions](Resources/doc/INSTALL.md)
+
 [Usage instructions](Resources/doc/USAGE.md)
 
