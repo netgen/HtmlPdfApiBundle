@@ -11,12 +11,12 @@ First, get the service from service container:
 ```php
 $htmlPdfApi = $this->container->get('netgen_html_pdf_api');
 ```
-HtmlPdfApi exposes HTMLPDFAPI (https://htmlpdfapi.com) functionalities: you can generate PDF from URL, generate PDF from HTML, manipulate assets on the server or find out how many credits you have left on your account.
+HtmlPdfApi exposes [HTML PDF API](https://htmlpdfapi.com) functionalities: you can generate PDF from URL, generate PDF from HTML, manipulate assets on the server or find out how many credits you have left on your account.
 
 Generating PDF
 --------------
 
-To generate PDF, you have to define parameters for the request. You can find the list of available options, as well as their description, in HTMLPDFAPI documentation  (https://htmlpdfapi.com/documentation).
+To generate PDF, you have to define parameters for the request. You can find the list of available options, as well as their description, in HTML PDF API [documentation](https://htmlpdfapi.com/documentation).
 
 ###Generating from URL
 

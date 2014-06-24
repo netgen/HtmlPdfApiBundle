@@ -1,7 +1,7 @@
 Netgen HtmlPdfApi Bundle
 ========================
 
-Netgen HtmlPdfApi Bundle is a bundle which exposes HTMLPDFAPI functionalities. HTMLPDFAPI provides an easy way for generating PDF documents from HTML code.
+Netgen HtmlPdfApi Bundle is a bundle which exposes [HTML PDF API](https://htmlpdfapi.com/) functionalities. HTMLPDFAPI provides an easy way for generating PDF documents from HTML code.
 
 Implemented features
 --------------------
