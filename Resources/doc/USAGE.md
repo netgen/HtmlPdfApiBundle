@@ -11,16 +11,16 @@ First, get the service from service container:
 ```php
 $htmlPdfApi = $this->container->get('netgen_html_pdf_api');
 ```
-HtmlPdfApi exposes API functionalities: you can generate PDF from URL, generate PDF from HTML, manipulate assets on the server or find out how many credits you have left on your account.
+HtmlPdfApi exposes HTMLPDFAPI (https://htmlpdfapi.com) functionalities: you can generate PDF from URL, generate PDF from HTML, manipulate assets on the server or find out how many credits you have left on your account.
 
 Generating PDF
 --------------
 
-To generate PDF, you have to define parameters for the request. You can find the list of available parameters, as well as their description, in HTMLPDFAPI documentation  ([https://htmlpdfapi.com/documentation]).
+To generate PDF, you have to define parameters for the request. You can find the list of available parameters, as well as their description, in HTMLPDFAPI documentation  (https://htmlpdfapi.com/documentation).
 
 ###Generating from URL
 
-If you want to generate PDF file directly from url, you must at least provide the 'url' parameter (in such case, 'html' parameter must not be set).
+If you want to generate PDF file directly from url, you must at least provide the 'url' parameter (in that case, 'html' parameter must not be set).
 Example:
 ```php
 $params = array ('url' => "http://www.netgenlabs.com/")
@@ -29,7 +29,7 @@ $pdfFile = $htmlPdfApi->generateFromURL($params);
 
 ###Generating from HTML
 
-If you want to generate PDF from HTML string, you must at least provide the 'html' parameter (in such case, 'url' parameter must not be set).
+If you want to generate PDF from HTML string, you must at least provide the 'html' parameter (in that case, 'url' parameter must not be set).
 Example:
 ```php
 $params = array('html' => "<h1>HTML PDF API is cool!</h1>")
@@ -49,7 +49,7 @@ There are several operations you can preform on assets: upload, download, delete
 ###Upload asset
 To upload an asset, you have to provide full path to the asset:
 ```php
-$response = $htmlPdfApi->uploadAsset($pathToAsset);
+$response = $htmlPdfApi->uploadAsset("/path/to/asset");
 ```
 
 ###Download asset
@@ -65,7 +65,7 @@ $response = $htmlPdfApi->deleteAsset($id);
 ```
 
 ###Get asset ID
-To find out which ID your asset have:
+To find out which ID your asset has:
 ```php
 $asset_id = $htmlPdfApi->getAssetID($assetName);
 ```
