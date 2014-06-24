@@ -74,6 +74,29 @@ class HtmlPdfApi {
     }
 
     /**
+     * Generates PDF file from provided file (html, zip, tar.gz...)
+     *
+     * @param array $params Parameters for pdf generating (parameter 'file' must be set)
+     * @return response
+     * @throws \Exception
+     */
+    public function generateFromFile($params)
+    {
+        if(empty($params['file']))
+            throw new \Exception('Parameter \'file\' must be set' );
+
+        $params['file'] = '@'.$params['file'];
+        $params = $this->validator->validate($params);
+        $this->validator->validateHtmlFile($params['file']);
+
+        try {
+            return $this->client->sendRequest('pdf', $params, 'POST');
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
      * Gets number of available credits
      *
      * @return response
@@ -101,6 +124,7 @@ class HtmlPdfApi {
     {
         $params = array( 'file' => '@'.$filePath );
         $params = $this->validator->validate($params);
+        $this->validator->validateAssetFile($params['file']);
 
         try {
             return $this->client->sendRequest('assets', $params, 'POST');

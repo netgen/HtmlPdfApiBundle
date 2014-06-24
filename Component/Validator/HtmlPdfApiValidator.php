@@ -20,8 +20,11 @@ class HtmlPdfApiValidator implements ValidatorInterface {
     {
         $params = $this->boolParams($params);
 
-        if (!empty($params['html']) && !empty($params['url']))
-            throw new InvalidParameterException("Only one of [html, url] parameters can be set!");
+        if (!empty($params['html']) && (!empty($params['url']) || !empty($params['file'])))
+            throw new InvalidParameterException("Only one of [html, url, file] parameters can be set!");
+
+        if (!empty($params['url']) && !empty($params['file']))
+            throw new InvalidParameterException("Only one of [html, url, file] parameters can be set!");
 
         if ((!empty($params['page_width']) && empty($params['page_height']))
             ||(empty($params['page_width']) && !empty($params['page_height'])))
@@ -159,23 +162,24 @@ class HtmlPdfApiValidator implements ValidatorInterface {
         if (!empty($params['id']) && !is_string($params['id']))
             throw new InvalidParameterException('ID must be a string.');
 
-        if (!empty($params['file']))
-            $this->validateFile($params['file']);
+        /*if (!empty($params['file']))
+            $this->validateFile($params['file']);*/
 
         return $params;
     }
 
     /**
-     * Checks if file exists at provided path, and is of supported format
+     * Checks if asset exists at provided path, and is of supported format
      *
      * @param string $file     Path to file (prefixed with @)
      *
      * @throws \Netgen\HtmlPdfApiBundle\Exception\FileNotFoundException
      * @throws \Netgen\HtmlPdfApiBundle\Exception\WrongFileExtensionException
      */
-    private function validateFile($file)
+    public function validateAssetFile($file)
     {
         $filePath = substr($file, 1);
+
         if (!is_file($filePath))
             throw new FileNotFoundException("File ".$filePath." was not found");
 
@@ -186,6 +190,30 @@ class HtmlPdfApiValidator implements ValidatorInterface {
         )))
             throw new WrongFileExtensionException("Wrong file format\n
             Supported formats: js, css, png, jpg, jpeg, gif, ttf, otf, woff");
+    }
+
+    /**
+     * Checks if file exists at provided path, and is of supported format
+     *
+     * @param string $file     Path to file (prefixed with @)
+     *
+     * @throws \Netgen\HtmlPdfApiBundle\Exception\FileNotFoundException
+     * @throws \Netgen\HtmlPdfApiBundle\Exception\WrongFileExtensionException
+     */
+    public function validateHtmlFile($file)
+    {
+        $filePath = substr($file, 1);
+
+        if (!is_file($filePath))
+            throw new FileNotFoundException("File ".$filePath." was not found");
+
+        $path_parts = pathinfo($filePath);
+
+        if( !in_array($path_parts['extension'], array(
+            "html", "htm", "zip", "tar.gz", "tgz", "tar.bz2"
+        )))
+            throw new WrongFileExtensionException("Wrong file format\n
+            Supported formats: html, htm, zip, tar.gz, tgz, tar.bz2");
     }
 
     /**

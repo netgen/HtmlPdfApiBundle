@@ -67,6 +67,9 @@ class Guzzle extends Client implements HttpClientInterface {
         else if (!empty($params['pdf'])){
             $commandName = 'GenerateFromPDF';
         }
+        else if (!empty($params['file'])&& $url=='pdf'){
+            $commandName = 'GenerateFromFile';
+        }
         else {
             $operations = $this->getDescription()->getOperations();
             foreach ($operations as $operation)

@@ -14,4 +14,8 @@ interface ValidatorInterface {
      */
     public function validate($parameters);
 
+    public function validateAssetFile($parameters);
+
+    public function validateHtmlFile($parameters);
+
 } 
