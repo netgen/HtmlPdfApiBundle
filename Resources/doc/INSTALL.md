@@ -6,11 +6,11 @@ Instalation steps
 
 ### Use Composer
 
-Add the following to your composer.json and run `php composer.phar update` to refresh dependencies:
+Add the following to your composer.json and run `php composer.phar update netgen/htmlpdfapi-bundle` to refresh dependencies:
 
 ```json
 "require": {
-    "netgen/htmlpdfapibundle": "~"
+    "netgen/htmlpdfapi-bundle": "~0.1"
 }
 ```
 
@@ -42,7 +42,15 @@ netgen_html_pdf_api:
     token: <your token>
 ```
 
-In `Netgen/HtmlPdfApiBundle/Resources/config/services.yml` file configure which Http Client and which Validator to use:
+If you use Guzzle Http Client and want to edit the location of service description file (service.json), add it to ```parameters.yml```:
+Example:
+```yml
+parameters:
+    netgen_html_pdf_api.http_client.guzzle.service_json_location: '/../src/Netgen/HtmlPdfApiBundle/Component/HttpClient'
+```
+
+Bundle uses Guzzle as a http client by default, as well as a default validator.
+If you want, you can configure which http client and validator to use in your `services.yml` file:
 
 ```yml
 services:

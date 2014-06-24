@@ -22,6 +22,7 @@ class NetgenHtmlPdfApiExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('parameters.yml');
 
         $container->setParameter('netgen_html_pdf_api.host', $config['host']);
         $container->setParameter('netgen_html_pdf_api.token', $config['token']);
