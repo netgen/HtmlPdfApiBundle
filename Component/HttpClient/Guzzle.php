@@ -42,6 +42,15 @@ class Guzzle extends Client implements HttpClientInterface {
         $this->setDefaultOption("headers", $header);
     }
 
+    /**
+     * Sends the request via Guzzle Client
+     *
+     * @param string $url       Relative url for the request
+     * @param array $params     Parameters for the request
+     * @param string $method    Method for the request
+     * @return array|\Guzzle\Http\Message\Response|\Netgen\HtmlPdfApiBundle\Component\response
+     * @throws \Exception
+     */
     public function sendRequest($url, $params, $method)
     {
         if (!empty($params['html'])){

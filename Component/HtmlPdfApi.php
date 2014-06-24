@@ -13,7 +13,13 @@ class HtmlPdfApi {
         $this->validator = $validator;
     }
 
-    // generates pdf from provided url
+    /**
+     * Generates PDF file from provided (relative) URL
+     *
+     * @param array $params Parameters for pdf generating (parameter 'url' must be set)
+     * @return response
+     * @throws \Exception
+     */
     public function generateFromURL($params)
     {
         if(empty($params['url']))
@@ -29,7 +35,13 @@ class HtmlPdfApi {
 
     }
 
-    // generates pdf from provided HTML string
+    /**
+     * Generates PDF file from provided HTML string
+     *
+     * @param array $params Parameters for pdf generating (parameter 'html' must be set)
+     * @return response
+     * @throws \Exception
+     */
     public function generateFromHTML($params)
     {
         if(empty($params['html']))
@@ -44,7 +56,12 @@ class HtmlPdfApi {
         }
     }
 
-    // returns available credits count
+    /**
+     * Gets number of available credits
+     *
+     * @return response
+     * @throws \Exception
+     */
     public function getCredits()
     {
         $params = array();
@@ -56,7 +73,13 @@ class HtmlPdfApi {
         }
     }
 
-    // uploads new asset to the HTMLPDFAPI server
+    /**
+     * Uploads new asset to HTMLPDFAPI server
+     *
+     * @param $filePath     Path to the file to upload
+     * @return response
+     * @throws \Exception
+     */
     public function uploadAsset($filePath)
     {
         $params = array( 'file' => '@'.$filePath );
@@ -69,7 +92,13 @@ class HtmlPdfApi {
         }
     }
 
-    // download asset by id
+    /**
+     * Downloads asset from server by id
+     *
+     * @param string $id    ID of the asset
+     * @return response
+     * @throws \Exception
+     */
     public function getAsset($id)
     {
         $params = array( 'id' => $id );
@@ -82,7 +111,13 @@ class HtmlPdfApi {
         }
     }
 
-    // delete asset by id
+    /**
+     * Deletes asset by ID
+     *
+     * @param string $id    ID of the asset
+     * @return response
+     * @throws \Exception
+     */
     public function deleteAsset($id)
     {
         $params = array( 'id' => $id );
@@ -95,7 +130,12 @@ class HtmlPdfApi {
         }
     }
 
-    // get list of assets (id, name, mime, size)
+    /**
+     * Gets the list of available assets
+     *
+     * @return response
+     * @throws \Exception
+     */
     public function getAssetList()
     {
         $params = array();
@@ -107,7 +147,13 @@ class HtmlPdfApi {
         }
     }
 
-    // get asset ID by name
+    /**
+     * Gets the asset ID by the name
+     *
+     * @param string $name  Name of the asset
+     * @return string $id   ID of the asset
+     * @throws \Exception
+     */
     public function getAssetID($name)
     {
         $list = $this->getAssetList();

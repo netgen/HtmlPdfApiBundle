@@ -56,7 +56,14 @@ class Curl implements HttpClientInterface {
         return $ch;
     }
 
-
+    /**
+     * Sends the request via curl
+     *
+     * @param string $url       Relative url for the request
+     * @param array $params     Parameters for the request
+     * @param string $method    Request method
+     * @return mixed|\Netgen\HtmlPdfApiBundle\Component\response
+     */
     public function sendRequest($url, $params, $method)
     {
         if($method=='POST')

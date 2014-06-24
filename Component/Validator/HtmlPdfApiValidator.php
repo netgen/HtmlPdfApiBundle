@@ -9,6 +9,13 @@ use Netgen\HtmlPdfApiBundle\Exception\WrongFileExtensionException;
 
 class HtmlPdfApiValidator implements ValidatorInterface {
 
+    /**
+     * Validates request parameters for HtmlPdfApi
+     *
+     * @param array $params     Parameters to validate
+     * @return array $params    Validated parameters
+     * @throws \Netgen\HtmlPdfApiBundle\Exception\InvalidParameterException
+     */
     public function validate($params)
     {
         $params = $this->boolParams($params);
