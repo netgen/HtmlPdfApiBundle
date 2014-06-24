@@ -12,7 +12,7 @@ services:
             - @netgen_html_pdf_api.validator
 
     netgen_html_pdf_api.http_client:
-        alias: netgen_html_pdf_api.http_client.curl
+        alias: netgen_html_pdf_api.http_client.guzzle
 
     netgen_html_pdf_api.validator:
         alias: netgen_html_pdf_api.validator.htmlpdfapivalidator

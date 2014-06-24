@@ -4,9 +4,6 @@
     "require": {
         "netgen/htmlpdfapi": "0.1"
     },
-    "repositories": [
-        { "type": "vcs", "url": "git@bitbucket.org:netgen/netgenhtmlpdfapi.git" }
-    ],
     "minimum-stability": "dev",
     "target-dir": "Netgen/HtmlPdfApiBundle",
     "autoload": {
