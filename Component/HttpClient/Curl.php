@@ -6,15 +6,39 @@ use Netgen\HtmlPdfApiBundle\Component\HttpClientInterface;
 
 class Curl implements HttpClientInterface {
 
+    /**
+     * Base url of the api
+     *
+     * @var string
+     */
     protected $host;
+
+    /**
+     * Security token
+     *
+     * @var string
+     */
     protected $token;
 
+    /**
+     * Constructor
+     *
+     * @param string $host  Base url of the api
+     * @param string $token Security token
+     */
     public function __construct($host, $token)
     {
         $this->host = $host;
         $this->token = $token;
     }
 
+    /**
+     * Initiates curl session for POST method
+     *
+     * @param string $url   Relative url for the request
+     * @param array $params Parameters for the request
+     * @return resource
+     */
     private function initiatePost($url, $params)
     {
         $ch = curl_init($this->host.'/'.$url);
@@ -26,6 +50,13 @@ class Curl implements HttpClientInterface {
         return $ch;
     }
 
+    /**
+     * Initiates curl session for GET method
+     *
+     * @param string $url   Relative url for the request
+     * @param array $params Parameters for the request
+     * @return resource
+     */
     private function initiateGet($url, $params)
     {;
         if (!empty($params))
@@ -40,6 +71,13 @@ class Curl implements HttpClientInterface {
         return $ch;
     }
 
+    /**
+     * Initiates curl session for DELETE method
+     *
+     * @param string $url   Relative url for the request
+     * @param array $params Parameters for the request
+     * @return resource
+     */
     private function initiateDelete($url, $params)
     {
 

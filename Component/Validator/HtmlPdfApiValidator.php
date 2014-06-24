@@ -165,6 +165,14 @@ class HtmlPdfApiValidator implements ValidatorInterface {
         return $params;
     }
 
+    /**
+     * Checks if file exists at provided path, and is of supported format
+     *
+     * @param string $file     Path to file (prefixed with @)
+     *
+     * @throws \Netgen\HtmlPdfApiBundle\Exception\FileNotFoundException
+     * @throws \Netgen\HtmlPdfApiBundle\Exception\WrongFileExtensionException
+     */
     private function validateFile($file)
     {
         $filePath = substr($file, 1);
@@ -180,6 +188,12 @@ class HtmlPdfApiValidator implements ValidatorInterface {
             Supported formats: js, css, png, jpg, jpeg, gif, ttf, otf, woff");
     }
 
+    /**
+     * Casts bool parameters to integer if set to false
+     *
+     * @param array $params Parameters
+     * @return array $params
+     */
     private function boolParams($params)
     {
         if (isset($params['lowquality']) && $params['lowquality']===false)

@@ -4,9 +4,26 @@ namespace Netgen\HtmlPdfApiBundle\Component;
 
 class HtmlPdfApi {
 
+    /**
+     * Client for sending requests
+     *
+     * @var HttpClientInterface
+     */
     protected $client;
+
+    /**
+     * Validator of parameters
+     *
+     * @var ValidatorInterface
+     */
     protected $validator;
 
+    /**
+     * Constructor
+     *
+     * @param HttpClientInterface $http_client
+     * @param ValidatorInterface $validator
+     */
     public function __construct(HttpClientInterface $http_client, ValidatorInterface $validator)
     {
         $this->client = $http_client;

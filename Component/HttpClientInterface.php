@@ -4,6 +4,7 @@ namespace Netgen\HtmlPdfApiBundle\Component;
 
 
 interface HttpClientInterface {
+
     /**
      * Sends request with provided parameters
      *

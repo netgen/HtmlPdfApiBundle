@@ -11,6 +11,14 @@ use Symfony\Component\Finder\Finder;
 
 class Guzzle extends Client implements HttpClientInterface {
 
+    /**
+     * Constructor
+     *
+     * @param string $host          Base url of the api
+     * @param string $token         Security token
+     * @param string $json_location Path to service.json file
+     * @param string $root          Root kernel directory
+     */
     public function __construct($host, $token, $json_location, $root)
     {
         //fallback value
@@ -28,7 +36,7 @@ class Guzzle extends Client implements HttpClientInterface {
         parent::__construct($config['host']);
 
         $finder = new Finder();
-        $finder->files()->name('service.json')->in($root.'/../'.$json_location);
+        $finder->files()->name('service.json')->in($root.$json_location);
         if ($finder->count() != 1)
             throw new \Exception("Problem with locating service.json file.");
         foreach ($finder as $file)
