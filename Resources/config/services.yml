@@ -1,12 +1,32 @@
 parameters:
-#    netgen_html_pdf_api.example.class: Netgen\HtmlPdfApiBundle\Example
+    netgen_html_pdf_api.class: Netgen\HtmlPdfApiBundle\Component\HtmlPdfApi
+    netgen_html_pdf_api.http_client.guzzle.class: Netgen\HtmlPdfApiBundle\Component\HttpClient\Guzzle
+    netgen_html_pdf_api.validator.class: Netgen\HtmlPdfApiBundle\Component\Validator\HtmlPdfApiValidator
+    netgen_html_pdf_api.http_client.curl.class: Netgen\HtmlPdfApiBundle\Component\HttpClient\Curl
 
 services:
-#    netgen_html_pdf_api.example:
-#        class: %netgen_html_pdf_api.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
     netgen_html_pdf_api:
-        class: Netgen\HtmlPdfApiBundle\Component\HtmlPdfApi
+        class: %netgen_html_pdf_api.class%
+        arguments:
+            - @netgen_html_pdf_api.http_client
+            - @netgen_html_pdf_api.validator
+
+    netgen_html_pdf_api.http_client:
+        alias: netgen_html_pdf_api.http_client.guzzle
+
+    netgen_html_pdf_api.validator:
+        class: %netgen_html_pdf_api.validator.class%
+
+    netgen_html_pdf_api.http_client.guzzle:
+        class: %netgen_html_pdf_api.http_client.guzzle.class%
+        arguments:
+            - %netgen_html_pdf_api.host%
+            - %netgen_html_pdf_api.token%
+            - %netgen_html_pdf_api.http_client.guzzle.service_json_location%
+            - %kernel.root_dir%
+
+    netgen_html_pdf_api.http_client.curl:
+        class: %netgen_html_pdf_api.http_client.curl.class%
         arguments:
             - %netgen_html_pdf_api.host%
             - %netgen_html_pdf_api.token%

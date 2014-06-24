@@ -1,28 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hex
- * Date: 16/06/14
- * Time: 13:08
- */
 
 namespace Netgen\HtmlPdfApiBundle\Component;
-
-use Guzzle\Http\Exception\ServerErrorResponseException;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Guzzle\Http\Exception\ClientErrorResponseException;
-use Guzzle\Batch\BatchBuilder;
 
 class HtmlPdfApi {
 
     protected $client;
+    protected $validator;
 
-    public function __construct($host, $token)
+    public function __construct(HttpClientInterface $http_client, ValidatorInterface $validator)
     {
-        $this->client = HtmlPdfApiClient::factory(array(
-            'hostname' => $host,
-            'token' => $token
-        ));
+        $this->client = $http_client;
+        $this->validator = $validator;
     }
 
     // generates pdf from provided url
@@ -31,27 +19,14 @@ class HtmlPdfApi {
         if(empty($params['url']))
             throw new \Exception('Parameter \'url\' must be set' );
 
-        if ((!empty($params['page_width']) && empty($params['page_height']))
-            ||(empty($params['page_width']) && !empty($params['page_height'])))
-        {
-            throw new \Exception('Page width and page height must both be set or unset!');
+        $params = $this->validator->validate($params);
+
+        try {
+            return $this->client->sendRequest('pdf', $params, 'POST');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
-        $params = $this->validateBoolParameters($params);
 
-        $command = $this->client->getCommand('GenerateFromURL', $params);
-        //die(var_dump($params));
-
-        //die(var_dump($command->toArray()));
-        //var_dump($command->prepare()->getRawHeaders());die();
-
-        //return $ret = $this->client->execute($command);
-       try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-           throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
-        }
     }
 
     // generates pdf from provided HTML string
@@ -60,97 +35,75 @@ class HtmlPdfApi {
         if(empty($params['html']))
             throw new \Exception('Parameter \'html\' must be set' );
 
-        if ((!empty($params['page_width']) && empty($params['page_height']))
-        ||(empty($params['page_width']) && !empty($params['page_height'])))
-        {
-            throw new \Exception('Page width and page height must both be set or unset!');
-        }
-        $params = $this->validateBoolParameters($params);
+        $params = $this->validator->validate($params);
 
-        $command = $this->client->getCommand('GenerateFromHTML', $params);
-
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('pdf', $params, 'POST');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
     // returns available credits count
     public function getCredits()
     {
-        $command = $this->client->getCommand('GetCredits');
+        $params = array();
 
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('credits', $params, 'GET');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
     // uploads new asset to the HTMLPDFAPI server
     public function uploadAsset($filePath)
     {
-        $command = $this->client->getCommand('UploadAsset', array(
-            'file' => '@'.$filePath
-        ));
+        $params = array( 'file' => '@'.$filePath );
+        $params = $this->validator->validate($params);
 
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('assets', $params, 'POST');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
     // download asset by id
     public function getAsset($id)
     {
-        $command = $this->client->getCommand('GetAsset', array(
-            'id' => $id
-        ));
+        $params = array( 'id' => $id );
+        $params = $this->validator->validate($params);
 
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('assets', $params, 'GET');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
     // delete asset by id
     public function deleteAsset($id)
     {
-        $command = $this->client->getCommand('DeleteAsset', array(
-            'id' => $id
-        ));
+        $params = array( 'id' => $id );
+        $params = $this->validator->validate($params);
 
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('assets', $params, 'DELETE');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
     // get list of assets (id, name, mime, size)
     public function getAssetList()
     {
-        $command = $this->client->getCommand('GetAssetList');
+        $params = array();
 
-        try{
-            $ret = $this->client->execute($command);
-            return $ret;
-        }catch(ClientErrorResponseException $exception){
-            //die(var_dump($exception->getResponse()->getBody(true)));
-            throw new \Exception($exception->getResponse()->getBody(true), $exception->getResponse()->getStatusCode());
+        try {
+            return $this->client->sendRequest('assets', $params, 'GET');
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 
@@ -165,48 +118,7 @@ class HtmlPdfApi {
             {
                 return $asset['id'];
             }
-
-            throw new \Exception('No asset found by name');
         }
-    }
-
-
-    // guzzle converts bool(false) to null
-    // this function validates bool parameters to int (0,1)
-    private function validateBoolParameters($params)
-    {
-        if (isset($params['lowquality']) && $params['lowquality']===false)
-        {
-            $params['lowquality'] = (int) $params['lowquality'];
-        }
-        if (isset($params['images']) && $params['images']===false)
-        {
-            $params['images'] = (int) $params['images'];
-        }
-        if (isset($params['outline']) && $params['outline']===false)
-        {
-            $params['outline'] = (int) $params['outline'];
-        }
-        if (isset($params['javascript']) && $params['javascript']===false)
-        {
-            $params['javascript'] = (int) $params['javascript'];
-        }
-        if (isset($params['internal_links']) && $params['internal_links']===false)
-        {
-            $params['internal_links'] = (int) $params['internal_links'];
-        }
-        if (isset($params['external_links']) && $params['external_links']===false)
-        {
-            $params['external_links'] = (int) $params['external_links'];
-        }
-        if (isset($params['use_print_media']) && $params['use_print_media']===false)
-        {
-            $params['use_print_media'] = (int) $params['use_print_media'];
-        }
-        if (isset($params['background']) && $params['background']===false)
-        {
-            $params['background'] = (int) $params['background'];
-        }
-        return $params;
+        throw new \Exception('No asset found by name');
     }
 } 

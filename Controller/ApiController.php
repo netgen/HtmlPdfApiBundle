@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hex
- * Date: 16/06/14
- * Time: 11:34
- */
 
 namespace Netgen\HtmlPdfApiBundle\Controller;
 
@@ -25,7 +19,7 @@ class ApiController extends Controller
             $response = new Response();
 
             //***** test generate from URL ******
-            $finder = new Finder();
+            /*$finder = new Finder();
             $finder->files()->in(__DIR__.'/../Templates');
             foreach ($finder as $file)
             {
@@ -65,15 +59,15 @@ class ApiController extends Controller
                 /*$response = new Response();
                 $response->headers->set('Content-Type', 'application/pdf');
                 $response->headers->set('Content-Disposition', 'attachment;filename='.$params['filename']);
-                $response->setContent($pdfFile);*/
+                $response->setContent($pdfFile);
                 return $response;
             }catch (\Exception $exception)
             {
                 echo $exception->getMessage(); die;
-            }
+            }*/
 
             //****** test generate from HTML *****
-            /*$params = array(
+            $params = array(
                 'html' => "<h1>HTML PDF API is cool!</h1>",
                 //'footer' => $footer,
                 'header' =>"<!DOCTYPE html><html><head><title></title></head>
@@ -86,7 +80,7 @@ class ApiController extends Controller
                 'dpi' => 80,
                 //'image_dpi' => 650,
                 'orientation' => "portrait",
-                'background' => "false",
+                'background' => false,
                 'zoom' => 1.2
                 //'outline' => false
             );
@@ -94,7 +88,7 @@ class ApiController extends Controller
             $response->headers->set('Content-Type', 'application/pdf');
             $response->headers->set('Content-Disposition', 'attachment;filename=out.pdf');
             $response->setContent($pdfFile);
-            return $response;*/
+            return $response;
 
             //***** test get credits *****
             /*$credits = $htmlPdfApi->getCredits();
@@ -115,7 +109,7 @@ class ApiController extends Controller
             return $response->setContent($responseString);*/
 
             //***** test get asset ******
-            /*$id = "53a17a19fd0ee33761cc856f";    //id jedino u dashboardu???
+            /*$id = "53a4247ca60143c564f706aa";    //id jedino u dashboardu???
             $asset = $htmlPdfApi->getAsset($id);
             $response->headers->set('Content-Type', 'image/png');
             $response->headers->set('Content-Disposition', 'attachment;filename=out.png');
@@ -127,12 +121,14 @@ class ApiController extends Controller
             return $response->setContent($returnValue);*/
 
             //***** test get list of assets *****
-            /*$assets = $htmlPdfApi->getAssetList();
+            /*$assets = $htmlPdfApi->getAssetList(); die(var_dump($assets));
             $response->setContent($assets);*/
 
             //***** test get asset id by name *****
             /*$asset_id = $htmlPdfApi->getAssetID("netgen_template.png");
-            $response->setContent($asset_id);*/
+            return $response->setContent($asset_id);*/
+
+            return $response;
 
         } catch (\Exception $ex){
             echo "Failed: ". $ex->getMessage();
