@@ -4,6 +4,7 @@ namespace Netgen\HtmlPdfApiBundle\Component\HttpClient;
 
 use Netgen\HtmlPdfApiBundle\Component\HttpClientInterface;
 
+
 class Curl implements HttpClientInterface {
 
     /**
@@ -46,7 +47,6 @@ class Curl implements HttpClientInterface {
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-
         return $ch;
     }
 
@@ -95,6 +95,32 @@ class Curl implements HttpClientInterface {
     }
 
     /**
+     * Initiate curl session for POST upload
+     *
+     * @param string $url   Relative url for the request
+     * @param array $params Parameters for the request
+     * @return resource
+     */
+    private function initiateUpload($url, $params)
+    {
+        $ch = curl_init($this->host.'/'.$url);
+
+        if (!empty($params['file']))
+        {
+            $params['file'] .= ";filename=".basename($params['file']);
+        }
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authentication: Token ". $this->token
+        ));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+
+        return $ch;
+    }
+
+    /**
      * Sends the request via curl
      *
      * @param string $url       Relative url for the request
@@ -106,15 +132,21 @@ class Curl implements HttpClientInterface {
     {
         if($method=='POST')
         {
-            $ch = $this->initiatePost($url, $params);
+            if (!empty($params['file']))
+                $ch = $this->initiateUpload($url, $params);
+            else
+                $ch = $this->initiatePost($url, $params);
         }
-        if($method=='GET')
+        else if($method=='GET')
         {
             $ch = $this->initiateGet($url, $params);
         }
-        if($method=='DELETE')
+        else if($method=='DELETE')
         {
             $ch = $this->initiateDelete($url, $params);
+        }
+        else{
+            throw new \Exception("Method ".$method." not supported!");
         }
 
         $ret = curl_exec($ch);

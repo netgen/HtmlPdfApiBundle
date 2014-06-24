@@ -20,7 +20,7 @@ To generate PDF, you have to define parameters for the request. You can find the
 
 ###Generating from URL
 
-If you want to generate PDF file directly from url, you must at least provide the 'url' parameter (in that case, 'html' parameter must not be set).
+If you want to generate PDF file directly from url, you must at least provide the 'url' parameter (in that case, 'html' and 'file' parameter must not be set).
 Example:
 ```php
 $params = array ('url' => "http://www.netgenlabs.com/")
@@ -29,18 +29,25 @@ $pdfFile = $htmlPdfApi->generateFromURL($params);
 
 ###Generating from HTML
 
-If you want to generate PDF from HTML string, you must at least provide the 'html' parameter (in that case, 'url' parameter must not be set).
+If you want to generate PDF from HTML string, you must at least provide the 'html' parameter (in that case, 'url' and 'file' parameter must not be set).
 Example:
 ```php
 $params = array('html' => "<h1>HTML PDF API is cool!</h1>")
 $pdfFile = $htmlPdfApi->generateFromHTML($params);
 ```
 
-Both functions return code 200 on success, and a pdf file.
+###Generating from file
+
+If you want to generate PDF from file (html or compressed file), you must at least provide the 'file' parameter which is a path to the file (in that case, 'html' and 'url' parameter must not be set).
+Example:
+```php
+$params = array('file' => "example.html")
+$pdfFile = $htmlPdfApi->generateFromFile($params);
+```
 
 ###Note
 
-Generating from file is currently not supported through Netgen HtmlPdfApi Bundle.
+All three functions return code 200 on success, and a pdf file.
 
 Assets
 ------
