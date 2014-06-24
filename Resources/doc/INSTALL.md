@@ -10,7 +10,7 @@ Add the following to your composer.json and run `php composer.phar update netgen
 
 ```json
 "require": {
-    "netgen/htmlpdfapi-bundle": "~0.2"
+    "netgen/htmlpdfapi-bundle": "~0.3"
 }
 ```
 
