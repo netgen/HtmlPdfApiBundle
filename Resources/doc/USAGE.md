@@ -45,9 +45,21 @@ $params = array('file' => "example.html")
 $pdfFile = $htmlPdfApi->generateFromFile($params);
 ```
 
+###Setting additional options
+
+Example:
+```php
+$params = array(
+    'url' => "http://www.netgenlabs.com",
+    'dpi' => 150,
+    'margin_top' => 20
+);
+```
+[Full options list](https://htmlpdfapi.com/documentation)
+
 ###Note
 
-All three functions return code 200 on success, and a pdf file.
+All three functions return code 200 on success and a pdf file.
 
 Assets
 ------
@@ -61,7 +73,7 @@ To upload an asset, you have to provide full path to the asset:
 $response = $htmlPdfApi->uploadAsset("/path/to/asset");
 ```
 
-On success returns code 201, and json object with asset information (id, name, mime, size).
+On success returns code 201 and json object with asset information (id, name, mime, size).
 
 
 ###Download asset
@@ -70,7 +82,7 @@ To download asset, you can get asset by ID:
 $asset = $htmlPdfApi->getAsset($id);
 ```
 
-On success returns code 200, and the asset (file).
+On success returns code 200 and the asset as a file.
 
 ###Delete asset
 You can delete asset by its ID:
@@ -80,7 +92,7 @@ $response = $htmlPdfApi->deleteAsset($id);
 
 On success returns code 204.
 
-###Get asset ID
+###Get asset ID by name
 To find out which ID your asset has:
 ```php
 $asset_id = $htmlPdfApi->getAssetID($assetName);
@@ -94,7 +106,7 @@ You can also get the list of uploaded assets:
 $assets = $htmlPdfApi->getAssetList();
 ```
 
-On success returns code 200, and list of json objects (each containing id, name, mime and size).
+On success returns code 200 and list of json objects (each containing id, name, mime and size of the asset).
 
 Credits
 -------
@@ -103,4 +115,4 @@ To find out how many credits you have left on your account:
 $credits = $htmlPdfApi->getCredits();
 ```
 
-On success returns code 200, and the number of available credits.
+On success returns code 200 and the number of available credits.
