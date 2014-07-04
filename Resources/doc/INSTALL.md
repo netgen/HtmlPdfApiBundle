@@ -42,7 +42,7 @@ netgen_html_pdf_api:
     token: <your token>
 ```
 
-If you use Guzzle Http Client and want to edit the location of service description file (service.json), add it to ```parameters.yml```:
+If you use Guzzle Http Client and want to edit the location of service description file (the file has to be called "service.json"), add it to ```parameters.yml```:
 Example:
 ```yml
 parameters:
