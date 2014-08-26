@@ -10,7 +10,7 @@ Add the following to your composer.json and run `php composer.phar update netgen
 
 ```json
 "require": {
-    "netgen/htmlpdfapi-bundle": "0.1"
+    "netgen/htmlpdfapi-bundle": "0.2"
 }
 ```
 
@@ -42,11 +42,11 @@ netgen_html_pdf_api:
     token: <your token>
 ```
 
-If you use Guzzle Http Client and want to edit the location of service description file (the file has to be called "service.json"), add it to ```parameters.yml```:
+If you use Guzzle Http Client and want to edit the location of service description file, add it to ```parameters.yml```:
 Example:
 ```yml
 parameters:
-    netgen_html_pdf_api.http_client.guzzle.service_json_location: '/path/to/service.json'
+    netgen_html_pdf_api.http_client.guzzle.service_json_location: '/path/to/service_description.json'
 ```
 
 Bundle uses Guzzle as a http client by default, as well as a default validator.
