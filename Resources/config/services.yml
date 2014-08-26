@@ -23,7 +23,6 @@ services:
             - %netgen_html_pdf_api.host%
             - %netgen_html_pdf_api.token%
             - %netgen_html_pdf_api.http_client.guzzle.service_json_location%
-            - %kernel.root_dir%
 
     netgen_html_pdf_api.http_client.curl:
         class: %netgen_html_pdf_api.http_client.curl.class%

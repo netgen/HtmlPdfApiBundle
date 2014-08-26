@@ -1,2 +1,2 @@
 parameters:
-    netgen_html_pdf_api.http_client.guzzle.service_json_location: '/../src/Netgen/HtmlPdfApi/HttpClient'
+    netgen_html_pdf_api.http_client.guzzle.service_json_location: %kernel.root_dir%/../vendor/netgen/htmlpdfapi/Netgen/HtmlPdfApi/HttpClient/service.json
