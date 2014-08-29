@@ -2,7 +2,7 @@
     "name": "netgen/htmlpdfapi-bundle",
     "description": "Netgen HTMLPDFAPI bundle",
     "require": {
-        "netgen/htmlpdfapi": "0.1"
+        "netgen/htmlpdfapi": "0.2"
     },
     "minimum-stability": "dev",
     "target-dir": "Netgen/HtmlPdfApiBundle",
