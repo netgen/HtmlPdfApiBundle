@@ -1,0 +1,28 @@
+services:
+    netgen_html_pdf_api:
+        class: Netgen\HtmlPdfApi\HtmlPdfApi
+        arguments:
+            - "@netgen_html_pdf_api.http_client"
+            - "@netgen_html_pdf_api.validator"
+
+    netgen_html_pdf_api.http_client:
+        alias: netgen_html_pdf_api.http_client.guzzle
+
+    netgen_html_pdf_api.validator:
+        alias: netgen_html_pdf_api.validator.htmlpdfapivalidator
+
+    netgen_html_pdf_api.http_client.guzzle:
+        class: Netgen\HtmlPdfApi\HttpClient\Guzzle
+        arguments:
+            - "%netgen_html_pdf_api.host%"
+            - "%netgen_html_pdf_api.token%"
+            - "%netgen_html_pdf_api.http_client.guzzle.service_json_location%"
+
+    netgen_html_pdf_api.http_client.curl:
+        class: Netgen\HtmlPdfApi\HttpClient\Curl
+        arguments:
+            - "%netgen_html_pdf_api.host%"
+            - "%netgen_html_pdf_api.token%"
+
+    netgen_html_pdf_api.validator.htmlpdfapivalidator:
+        class: Netgen\HtmlPdfApi\Validator\HtmlPdfApiValidator
