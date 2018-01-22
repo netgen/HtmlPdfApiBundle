@@ -8,7 +8,7 @@
         "htmlpdfapi"
     ],
     "homepage": "https://github.com/netgen/HtmlPdfApiBundle",
-    "license": "GPL-2.0",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Netgen",
